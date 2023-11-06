@@ -1,6 +1,9 @@
 <?php
 
-use Telegram\Bot\Commands\HelpCommand;
+use App\Telegram\Commands\HelpCommand;
+use App\Telegram\Commands\StartCommand;
+use App\Telegram\Commands\ViewBikesCommand;
+use App\Telegram\Commands\MyBookingsCommand;
 
 return [
     /*
@@ -31,18 +34,16 @@ return [
     |             ]
     */
     'bots' => [
-        'mybot' => [
-            'token' => env('TELEGRAM_BOT_TOKEN', 'YOUR-BOT-TOKEN'),
-            'certificate_path' => env('TELEGRAM_CERTIFICATE_PATH', 'YOUR-CERTIFICATE-PATH'),
-            'webhook_url' => env('TELEGRAM_WEBHOOK_URL', 'YOUR-BOT-WEBHOOK-URL'),
+        'soul_bikes_bali_bot' => [
+            'token' => env('TELEGRAM_BOT_TOKEN'),
+            'certificate_path' => env('TELEGRAM_CERTIFICATE_PATH'),
+            'webhook_url' => env('TELEGRAM_WEBHOOK_URL'),
             'commands' => [
-                //Acme\Project\Commands\MyTelegramBot\BotCommand::class
+                StartCommand::class,
+                ViewBikesCommand::class,
+                MyBookingsCommand::class,
             ],
         ],
-
-        //        'mySecondBot' => [
-        //            'token' => '123456:abc',
-        //        ],
     ],
 
     /*
@@ -54,7 +55,7 @@ return [
     | your default bot for regular use.
     |
     */
-    'default' => 'mybot',
+    'default' => 'soul_bikes_bali_bot',
 
     /*
     |--------------------------------------------------------------------------
@@ -126,6 +127,9 @@ return [
     |
     */
     'commands' => [
+        StartCommand::class,
+        ViewBikesCommand::class,
+        MyBookingsCommand::class,
         HelpCommand::class,
     ],
 
