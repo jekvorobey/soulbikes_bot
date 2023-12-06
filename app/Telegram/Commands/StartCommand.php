@@ -2,19 +2,45 @@
 
 namespace App\Telegram\Commands;
 
-use Telegram\Bot\Commands\Command;
+use Telegram\Bot\Keyboard\Keyboard;
 
-class StartCommand extends Command
+class StartCommand extends BaseCommand
 {
     protected string $name = 'start';
     protected string $description = 'start command';
 
     public function handle()
     {
-        $text = "Привет! Добро пожаловать в бот по аренде мотоциклов.";
+        $keyboard = Keyboard::make()
+            ->inline()
+            ->row([
+                Keyboard::inlineButton([
+                    'text' => 'Просмотреть мотоциклы',
+                    'callback_data' => '/view_bikes',
+                ])
+            ])
+            ->row([
+                Keyboard::inlineButton([
+                    'text' => 'Мои бронирования',
+                    'callback_data' => '/my_bookings',
+                ])
+            ])
+            ->row([
+                Keyboard::inlineButton([
+                    'text' => 'Настройки',
+                    'callback_data' => '/settings',
+                ])
+            ])
+            ->row([
+                Keyboard::inlineButton(['text' => 'Помощь']),
+            ])
+            ->setResizeKeyboard(true)
+            ->setOneTimeKeyboard(true)
+            ->setSelective(false);
 
         $this->replyWithMessage([
-            'text' => $text,
+            'text' => 'Добро пожаловать! Чем могу помо?',
+            'reply_markup' => $keyboard
         ]);
     }
 }

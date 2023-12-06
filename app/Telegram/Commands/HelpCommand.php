@@ -2,9 +2,7 @@
 
 namespace App\Telegram\Commands;
 
-use Telegram\Bot\Commands\Command;
-
-class HelpCommand extends Command
+class HelpCommand extends BaseCommand
 {
     protected string $name = 'help';
 
