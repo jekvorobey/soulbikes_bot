@@ -24,11 +24,11 @@ return new class extends Migration
                 $table->integer('cylinders_count');
                 $table->integer('horse_power');
                 $table->integer('year');
-                $table->integer('mileage');
-                $table->integer('tires_id');
-                $table->integer('muffler_type_id');
-                $table->string('insurance');
-                $table->text('description');
+                $table->integer('mileage')->nullable();
+                $table->integer('tires_id')->nullable();
+                $table->integer('muffler_type_id')->nullable();
+                $table->string('insurance')->nullable();
+                $table->text('description')->nullable();
                 $table->boolean('status');
                 $table->timestamps();
             });
@@ -37,7 +37,7 @@ return new class extends Migration
                 $table->bigIncrements('id');
                 $table->string('name');
                 $table->string('code');
-                $table->string('description');
+                $table->string('description')->nullable();
                 $table->timestamps();
             });
 
@@ -45,7 +45,7 @@ return new class extends Migration
                 $table->bigIncrements('id');
                 $table->string('name');
                 $table->string('code');
-                $table->string('description');
+                $table->string('description')->nullable();
                 $table->timestamps();
             });
 
