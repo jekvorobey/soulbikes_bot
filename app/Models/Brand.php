@@ -3,7 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+
+/**
+ * @property string $name - название
+ * @property string $code - код
+ * @property string $description - описание
+ */
 
 class Brand extends Model
 {
