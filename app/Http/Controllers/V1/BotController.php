@@ -8,20 +8,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Api;
 use Telegram\Bot\Laravel\Facades\Telegram;
+use Telegram\Bot\Objects\CallbackQuery;
 
 class BotController extends Controller
 {
-    protected Api $telegram;
-    public function __construct(Api $telegram)
-    {
-        $this->telegram = new Api(getenv('TELEGRAM_BOT_TOKEN'));
-    }
-
     public function handleWebhook()
     {
         try {
             $update = Telegram::commandsHandler(true);
-            Log::info('update', [$update]);
+            $data = json_decode($update->callbackQuery->data ?? '[]', true);
+            //Log::info('data', is_array($data) ? $data : [$data]);
+            if (!empty($data['command'])) {
+                Telegram::triggerCommand($data['command'], $update);
+            }
+            //Log::info('update', [$update]);
+            return 'ok';
         } catch (\Exception $e) {
             Log::error('handleWebhook: ' . $e->getMessage());
         }
